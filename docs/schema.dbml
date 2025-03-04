@@ -1,0 +1,22 @@
+Table User {
+  id        Int     [pk, increment]
+  username  String
+  playlists Playlist[]
+}
+
+Table Playlist {
+  id            Int     [pk, increment]
+  name          String
+  description   String
+  owner         User
+  tracks        Track[]
+}
+
+Table Track {
+  id        Int [pk, increment]
+  name      String
+  playlists Playlist[]
+}
+
+Ref: User.playlists < Playlist.owner
+Ref: Playlist.tracks <> Track.playlists
