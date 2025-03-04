@@ -1,4 +1,6 @@
 const prisma = require("./index.js");
+const getRandomInt = (max) => Math.floor(Math.random() * max);
+
 const seed = async () => {
   const usersData = [
     { username: "firstUser" },
@@ -17,6 +19,9 @@ const seed = async () => {
     users.push(user);
     console.log(`User created: ${user.username}`);
   }
+  const tracksData = Array.from({ length: 20 }).map((_, index) => ({
+    name: `Track ${index + 1}`,
+  }));
   const tracks = [];
   for (const trackData of tracksData) {
     const track = await prisma.track.create({
@@ -29,7 +34,11 @@ const seed = async () => {
   }
   for (let i = 0; i < 10; i++) {
     const randomUser = users[getRandomInt(users.length)];
-    const playlistTracks = await prisma.playlist.create({
+
+    const playlistTracks = Array.from({ length: getRandomInt(5) + 1 }).map(
+      () => tracks[getRandomInt(tracks.length)]
+    );
+    const playlist = await prisma.playlist.create({
       data: {
         name: `Playlist ${i + 1}`,
         description: `Description for Playlist ${i + 1}`,
