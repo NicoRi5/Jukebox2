@@ -20,16 +20,16 @@ model User {
 }
 
 model Playlist {
-  id           Int     @id @default(autoincrement())
+  id           Int      @id @default(autoincrement())
   name         String
   description  String
   ownerId      Int
-  owner        User    @relation(fields: [ownerId], references: [id])
-  tracks       Track[]
+  owner        User     @relation(fields: [ownerId], references: [id])
+  tracks       Track[]  @relation("PlaylistTrack")
 }
 
 model Track {
-  id         Int     @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   name       String
-  playlists  Playlist[]
+  playlists  Playlist[]  @relation("PlaylistTrack")
 }
