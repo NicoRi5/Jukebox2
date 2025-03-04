@@ -35,7 +35,7 @@ const seed = async () => {
   for (let i = 0; i < 10; i++) {
     const randomUser = users[getRandomInt(users.length)];
 
-    const playlistTracks = Array.from({ length: getRandomInt(5) + 1 }).map(
+    const playlistTracks = Array.from({ length: 8}).map(
       () => tracks[getRandomInt(tracks.length)]
     );
     const playlist = await prisma.playlist.create({
